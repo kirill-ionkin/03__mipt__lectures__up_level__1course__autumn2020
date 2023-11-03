@@ -1,1 +1,9 @@
-.vscode
+# Ignore everything
+*
+
+# But not cpp
+!*.cpp
+# Or directories
+!*/
+!.gitignore
+!README.md
