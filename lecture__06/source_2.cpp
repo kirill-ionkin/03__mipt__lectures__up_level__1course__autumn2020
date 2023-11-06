@@ -14,6 +14,7 @@ public:
     double im;
 
 public:
+    Complex(double x) : re{x}, im{0.0} {}
     Complex(double re, double im): re{re}, im{im} {}
     Complex(const Complex&)
     {
@@ -39,13 +40,30 @@ public:
         return sum += c;
     }
 
-    // ++
-    Complex& operator++(int notused)
+    // ++ prefix
+    Complex& operator++()
     {
-        
+        ++(this->re);
+        return *this;
     }
+    // ++ postfix
+    Complex operator++(int)
+    {
+        Complex tmp = *this;
 
+        ++*this; // call ++ prefix
+        return tmp;
+    }
 };
+
+// Оператор + надо реализовать вне класса,
+// чтобы можно было складывать - 5.0 + Complex(1, 2)
+Complex operator+(const Complex& a, const Complex& c)
+{
+    Complex sum = a;
+    sum += c;
+    return sum;
+}
 
 
 int main()
@@ -54,4 +72,13 @@ int main()
     Complex c = {1.0, 2.0};
     // copy elision
     Complex cc = c + c;
+
+    // реализация + вне класса повзволяет писать
+    Complex c5 = 5.0 + c;
+
+    // 3.6 Constant methods and operator [] overloading
+    // реализацию см. в source1.cpp, class String
+
+    // 3.7 Stream input/output overloading
+    // реализацию см. в source1.cpp, class String
 }

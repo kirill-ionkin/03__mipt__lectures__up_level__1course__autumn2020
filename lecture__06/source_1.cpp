@@ -96,7 +96,49 @@ public:
 
         std::cout << "inside destructor\n";
     }
+
+
+    // getter
+    size_t size() const
+    {
+        return this->sz;
+    }
+
+
+    // 3.6 Constant methods and operator [] overloading  
+    char& operator[](size_t index)
+    {
+        return this->str[index];
+    }
+
+    // если строка const, нужно использовать const
+    const char& operator[](size_t index) const
+    {
+        return this->str[index];
+    }
+
+
+    // 3.7 Stream input/output overloading
+    // определять нужно вне класа т.к. левый операнд - поток
+    friend std::istream& operator>>(std::istream& in, String& s);
 };
+
+// 3.7 Stream input/output overloading
+// operator <<
+std::iostream& operator<<(std::iostream& out, String& s)
+{
+    for (int i = 0; i < s.size(); ++i)
+    {
+        out << s[i];
+    }
+    return out;
+}
+
+// operator >>
+std::istream& operator>>(std::istream& in, String& s)
+{
+    
+}
 
 
 int main()
@@ -106,6 +148,6 @@ int main()
     // 3.4 Initializer lists in constructor - Member Initializers
     // см. код конструктора
 
-    
+
 
 }
