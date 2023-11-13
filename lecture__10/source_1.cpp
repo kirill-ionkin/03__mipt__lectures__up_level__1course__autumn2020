@@ -5,9 +5,41 @@
 #include <iostream>
 
 
+struct Mom
+{
+    void f()
+    {
+        std::cout << "Mom::f()\n";
+    }
+    int m = 1;
+};
+
+struct Dad 
+{
+    void f()
+    {
+        std::cout << "Dad::f()\n";
+    }
+    int d = 2;
+};
+
+// [ Mom::m ][ Dad::d ][ Son::s ]
+struct Son : public Mom, public Dad
+{
+    int s = 3;
+};
+
+
 int main()
 {
     // 4.5 Multiple Inheritance
-    
+    Son s;
+    std::cout << sizeof(s) << '\n';
 
+    std::cout << "&s.m = " << &s.m << '\n';
+    std::cout << "&s.d = " << &s.d << '\n';
+    std::cout << "&s.s = " << &s.s << '\n';
+
+    // s.f(); // CE - Compile Error - 2 кандидата равноправных для компилятора
+    s.Mom::f(); // вызов конкретной функции у родителя
 }
